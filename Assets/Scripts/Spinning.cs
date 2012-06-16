@@ -10,18 +10,16 @@ public class Spinning : MonoBehaviour {
 	public GameObject AcornPrefab;
 	float Stamina;
 	float Speed;
-
+	float minSeconds = 0.5f;
+	float maxSeconds = 2.0f;
 
 	void Start () {
 		Speed=10;
-		Boost=2.5f;
-	
-	
-		GameObject obj = (GameObject)Instantiate(AcornPrefab,new Vector3(2.5F,0.6F,80.0F),Quaternion.identity);
-		//obj.layer = MerryGoRound.layer;
-		obj.transform.parent = MerryGoRound.transform;	
+		Boost=2.5f;	
 		
-		//Debug.LogError(obj.transform.position);
+		
+		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
+		
 	
 	}
 	
@@ -93,4 +91,42 @@ public class Spinning : MonoBehaviour {
 			break;
 		}
 	}*/
+	
+	Vector3 getRandomPosition() {
+		int track = Random.Range(0,5);
+		float radius = 0.0f;
+		switch(track) {
+		case 0:
+			radius = 65.0f;
+			break;
+		case 1:
+			radius = 125.0f;
+			break;
+		case 2:
+			radius = 170.0f;
+			break;
+		case 3:
+			radius = 218.0f;
+			break;
+		case 4:
+			radius = 272.0f;
+			break;
+		}
+		Vector2 newPosition = Random.insideUnitCircle;
+		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y),80.0F);
+	}
+	void AcornSpawn() {
+		/*var i= Random.value* range;
+		var j= Random.value* range;
+		var k = Random.value* range;
+		var pos = Vector3(i,j,k)+player.position;
+		*/ 	
+		GameObject obj = (GameObject)Instantiate(AcornPrefab,getRandomPosition(),Quaternion.identity);
+		
+		obj.transform.parent = MerryGoRound.transform;
+		
+		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
+	}
 }
