@@ -12,17 +12,24 @@ public class MainMenuManager : MonoBehaviour {
 	void Update () {
 		if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
 		{
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-			if(Physics.Raycast(ray, out hit, 100.0f))
+			Debug.Log("Touched");
+			if(guiTexture.HitTest(Input.GetTouch(0).position))
 			{
-				string gameObjectName = hit.collider.gameObject.name;
-				
-				if(gameObjectName == "PlayButton")
-				{
-					Application.LoadLevel("Main");
-				}
+				Debug.Log("PlayButton touched");
+				Application.LoadLevel("Main");
 			}
 		}
+		
+		/*
+		if(Input.GetMouseButton(0))
+		{
+			Debug.Log("Touched");
+			if(guiTexture.HitTest(Input.mousePosition) && guiTexture.name == "PlayButton")
+			{
+				Debug.Log("PlayButton touched");
+				Application.LoadLevel("Main");
+			}
+		}
+		*/
 	}
 }
