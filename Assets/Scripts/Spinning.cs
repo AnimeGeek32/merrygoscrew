@@ -54,7 +54,7 @@ public class Spinning : MonoBehaviour {
 	*/
 	void OnCollisionEnter(Collision Vine)
 	{
-		Debug.LogError("TEST Collision");	
+		Debug.Log("TEST Collision");	
 	}
 	/*
 	void SpeedCalc()
