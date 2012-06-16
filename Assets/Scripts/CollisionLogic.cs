@@ -15,9 +15,8 @@ public class CollisionLogic : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider collision) //when you hit the acorn
 	{
-		Debug.Log("GOT IT");
 		if(collision.gameObject.tag == "Acorn") {
-			//Debug.Log("GOT IT");
+			Debug.Log("GOT IT");
 			GameObject staminaMeterManager = GameObject.Find("StaminaMeter");
 			int currentStaminaLevel = staminaMeterManager.GetComponent<StaminaMeterManager>().getStaminaLevel();
 			if(currentStaminaLevel < 9)
