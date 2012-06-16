@@ -7,7 +7,7 @@ public class Spinning : MonoBehaviour {
 	public GameObject Acorn;
 	public int CurrentLane;
 	public float Boost;
-	
+	public GameObject AcornPrefab;
 	float Stamina;
 	float Speed;
 
@@ -15,6 +15,13 @@ public class Spinning : MonoBehaviour {
 	void Start () {
 		Speed=10;
 		Boost=2.5f;
+	
+	
+		GameObject obj = (GameObject)Instantiate(AcornPrefab,new Vector3(2.5F,0.6F,80.0F),Quaternion.identity);
+		//obj.layer = MerryGoRound.layer;
+		obj.transform.parent = MerryGoRound.transform;	
+		
+		//Debug.LogError(obj.transform.position);
 	
 	}
 	
