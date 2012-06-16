@@ -17,11 +17,22 @@ public class Spinning : MonoBehaviour {
 
 	void Start () {
 		Speed=10;
+<<<<<<< HEAD
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
 
+=======
+		Boost=2.5f;
+		
+		//GameObject obj = (GameObject)Instantiate(AcornPrefab,new Vector3(2.5F,0.6F,80.0F),Quaternion.identity);
+		//obj.layer = MerryGoRound.layer;
+		//obj.transform.parent = MerryGoRound.transform;	
+		
+		//Debug.LogError(obj.transform.position);
+	
+>>>>>>> 265a2289e8f10de4502375579fd72c38c337480b
 	}
 	
 
