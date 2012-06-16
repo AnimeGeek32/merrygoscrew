@@ -6,6 +6,16 @@ public class Spinning : MonoBehaviour {
 	public float Speed;
 	public GameObject Character;
 	float Stamina;
+	public GameObject Acorn1;
+	public GameObject Acorn2;
+	public GameObject Acorn3;
+	public GameObject Acorn4;
+	public GameObject Acorn5;
+	public GameObject Obst1;
+	public GameObject Obst2;
+	public GameObject Obst3;
+	public GameObject Obst4;
+	public GameObject Obst5;
 
 	void Start () {
 	
@@ -14,18 +24,33 @@ public class Spinning : MonoBehaviour {
 
 	void Update () 
 	{
-		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 90));
+		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
+		
+		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
+	        Touch primaryTouch = Input.GetTouch(0);
+	        float direction  = primaryTouch.deltaPosition.x ;
+			float moveDistance = 50;
+			if(direction < 0) {
+				//Swipe Left
+				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				Debug.Log("MoveLeft");
+			} else {
+				//Swipe Right
+				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				Debug.Log("MoveRight");
 	
 	}
-
-	void CharacterMoveRight()
-	{
-		iTween.MoveTo(Character,iTween.Hash("x", +2.5));	
-	}
-
-	void CharacterMoveLeft()
-	{
-		iTween.MoveTo(Character,iTween.Hash("x", -2.5));
+		}
 	}
 	
+	
+	void StaminaRegen()
+	{
+		
+	}
+	
+	void SpeedCalc()
+	{
+	if (	
+	}
 }
