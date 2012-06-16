@@ -3,22 +3,18 @@ using System.Collections;
 
 public class Spinning : MonoBehaviour {
 	public GameObject MerryGoRound;
-	public float Speed;
-	public int currentLane;
 	public GameObject Character;
+	public GameObject Acorn;
+	public int CurrentLane;
+	public float Boost;
+	
 	float Stamina;
-	public GameObject Acorn1;
-	public GameObject Acorn2;
-	public GameObject Acorn3;
-	public GameObject Acorn4;
-	public GameObject Acorn5;
-	public GameObject Obst1;
-	public GameObject Obst2;
-	public GameObject Obst3;
-	public GameObject Obst4;
-	public GameObject Obst5;
+	float Speed;
+
 
 	void Start () {
+		Speed=10;
+		Boost=2.5f;
 	
 	}
 	
@@ -45,7 +41,18 @@ public class Spinning : MonoBehaviour {
 	}
 	
 	
-	void StaminaRegen()
+	/*void OnTriggerStay(Collider Acorn) //when you hit the acorn
+	{
+		if(Acorn.attachedRigidbody)
+			Mathf(Speed+Boost);
+	}
+	
+	void OnCollisionExit(Collision Acorn) //after you collide with the acorn
+	{
+		Destroy(gameObject);
+	}
+	
+	void OnCollisionEnter(Collision Vine)
 	{
 		
 	}
@@ -78,5 +85,5 @@ public class Spinning : MonoBehaviour {
 			Debug.Log("Unknown lane");
 			break;
 		}
-	}
+	}*/
 }
