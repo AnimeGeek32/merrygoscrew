@@ -13,11 +13,17 @@ public class CollisionLogic : MonoBehaviour {
 	void Update () {
 		
 	}
-	void OnTriggerStay(Collider collision) //when you hit the acorn
+	void OnTriggerEnter(Collider collision) //when you hit the acorn
 	{
-		Debug.LogError("COLL: " + collision.gameObject.name);
-		if(collision.gameObject.name == "AcornPrefab") {
-			Debug.LogError("GOT IT");
+		Debug.Log("GOT IT");
+		if(collision.gameObject.tag == "Acorn") {
+			//Debug.Log("GOT IT");
+			GameObject staminaMeterManager = GameObject.Find("StaminaMeter");
+			int currentStaminaLevel = staminaMeterManager.GetComponent<StaminaMeterManager>().getStaminaLevel();
+			if(currentStaminaLevel < 9)
+			{
+				staminaMeterManager.GetComponent<StaminaMeterManager>().setStaminaLevel(currentStaminaLevel + 1);
+			}
 		}
 	}
 	
