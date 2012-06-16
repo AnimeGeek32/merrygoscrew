@@ -7,7 +7,7 @@ public class CollisionLogic : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-
+		
 	}
 	
 	// Update is called once per frame
@@ -17,7 +17,7 @@ public class CollisionLogic : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider collision) //when you hit the acorn
 	{
-		
+		//Debug.Log(collision.gameObject.tag + " ==> " + collision.gameObject.name);
 		if((collision.gameObject.tag == "Player") && (!isGathered)) {
 			isGathered=true;
 			
@@ -30,6 +30,7 @@ public class CollisionLogic : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
+	
 	
 	
 }

@@ -18,6 +18,8 @@ public class StaminaMeterManager : MonoBehaviour {
 				transform.Find("StaminaMeterTick" + i).gameObject.active = false;
 			}
 		}
+		
+		InvokeRepeating("decrementStamina",6.0f,1);
 	}
 	
 	// Update is called once per frame
@@ -44,5 +46,10 @@ public class StaminaMeterManager : MonoBehaviour {
 				transform.Find("StaminaMeterTick" + i).gameObject.active = false;
 			}
 		}
+	}
+	
+	private void decrementStamina() {
+		if(staminaLevel >= 0)
+			setStaminaLevel(staminaLevel - 1);
 	}
 }
