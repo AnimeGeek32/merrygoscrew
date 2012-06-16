@@ -51,12 +51,12 @@ public class Spinning : MonoBehaviour {
 	{
 		Destroy(gameObject);
 	}
-	
+	*/
 	void OnCollisionEnter(Collision Vine)
 	{
-		
+		Debug.LogError("TEST Collision");	
 	}
-	
+	/*
 	void SpeedCalc()
 	{
 		switch(currentLane)

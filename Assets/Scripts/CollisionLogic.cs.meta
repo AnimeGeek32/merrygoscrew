@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: d421aa066f2764d38a51bbfe15d494f9
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Lane1: {instanceID: 0}
+  - Lane2: {instanceID: 0}
+  - Lane3: {instanceID: 0}
+  - Lane4: {instanceID: 0}
+  - Lane5: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
