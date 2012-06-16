@@ -36,10 +36,12 @@ public class Spinning : MonoBehaviour {
 			if(direction < 0) {
 				//Swipe Left
 				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				audio.Play();
 				Debug.Log("MoveLeft");
 			} else {
 				//Swipe Right
 				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				audio.Play();
 				Debug.Log("MoveRight");
 	
 	}
