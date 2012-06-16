@@ -4,6 +4,7 @@ using System.Collections;
 public class Spinning : MonoBehaviour {
 	public GameObject MerryGoRound;
 	public float Speed;
+	public int currentLane;
 	public GameObject Character;
 	float Stamina;
 	public GameObject Acorn1;
@@ -51,6 +52,31 @@ public class Spinning : MonoBehaviour {
 	
 	void SpeedCalc()
 	{
-	if (	
+		switch(currentLane)
+		{
+		case 1:
+			Debug.Log("Lane 1");
+			Speed = 10;
+			break;
+		case 2:
+			Debug.Log("Lane 2");
+			Speed = 15;
+			break;
+		case 3:
+			Debug.Log("Lane 3");
+			Speed = 20;
+			break;
+		case 4:
+			Debug.Log("Lane 4");
+			Speed = 25;
+			break;
+		case 5:
+			Debug.Log("Lane 5");
+			Speed = 30;
+			break;
+		default:
+			Debug.Log("Unknown lane");
+			break;
+		}
 	}
 }
