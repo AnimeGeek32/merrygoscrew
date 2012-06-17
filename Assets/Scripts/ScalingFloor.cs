@@ -31,6 +31,9 @@ public class ScalingFloor : MonoBehaviour {
 			FloorTrees.active=true;
 			iTween.ScaleTo(FloorGrass,iTween.Hash("speed",spinning.Speed,"x", 25, "z", 25));
 			audio.PlayOneShot(LevelChange);
+		} 
+		if(currentElevation<105 && FloorTrees.active){
+			
 		}
 		if(currentElevation>=210 && !FloorMountain.active){
 			FloorMountain.active=true;
