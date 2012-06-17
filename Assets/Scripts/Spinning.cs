@@ -44,7 +44,7 @@ public class Spinning : MonoBehaviour {
 		Invoke("startVineCrawl",vineCrawlDelay);
 		
 				
-		gameOver(true);
+		//gameOver(true);
 	}
 	
 	void startVineCrawl() {
@@ -318,8 +318,9 @@ public class Spinning : MonoBehaviour {
 		} else {
 			float alphaFadeValue = Mathf.Clamp01(Time.deltaTime / 5);
 
-			GUI.color = new Color(0, 0, 0, alphaFadeValue);
-			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), blackTexture );
+			//GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			//GameObject blackTexture = GameObject.Find("BlackTexture");
+			//GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), blackTexture );
 		}
 	}
 
