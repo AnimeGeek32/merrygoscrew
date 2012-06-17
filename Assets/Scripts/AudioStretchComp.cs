@@ -2,14 +2,22 @@ using UnityEngine;
 using System.Collections;
 
 public class AudioStretchComp : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+ 	public AudioClip GameMusic;
+	public StaminaMeterManager staminaMeterManager;
+	public Spinning spinning;
 	
+	void Start () {
+	audio.pitch=1;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+	 if(staminaMeterManager.getStaminaLevel<2)
+			audio.pitch=.73;
+		
+	if(staminaMeterManager.getStaminaLevel>5)
+			audio.pitch=1.33;
+		
 	
 	}
 }
