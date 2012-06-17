@@ -19,7 +19,7 @@ public class StaminaMeterManager : MonoBehaviour {
 			}
 		}
 		
-		InvokeRepeating("decrementStamina",6.0f,1);
+		InvokeRepeating("decrementStamina",20.0f,1);
 	}
 	
 	// Update is called once per frame
