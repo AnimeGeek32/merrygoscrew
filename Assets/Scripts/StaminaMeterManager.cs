@@ -6,7 +6,7 @@ public class StaminaMeterManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		staminaLevel = 3;
+		staminaLevel = 1;
 		for(int i = 0; i < 10; i++)
 		{
 			if( i <= staminaLevel )
@@ -19,7 +19,7 @@ public class StaminaMeterManager : MonoBehaviour {
 			}
 		}
 		
-		InvokeRepeating("decrementStamina",6.0f,1);
+		InvokeRepeating("decrementStamina",6.0f,3);
 	}
 	
 	// Update is called once per frame
@@ -45,6 +45,12 @@ public class StaminaMeterManager : MonoBehaviour {
 			{
 				transform.Find("StaminaMeterTick" + i).gameObject.active = false;
 			}
+		}
+		
+		if(staminaLevel < 0) {
+			//Game over	
+			GameObject gameManager  = GameObject.Find("GameManager");
+			gameManager.GetComponent<Spinning>().gameOver();
 		}
 	}
 	

@@ -8,19 +8,28 @@ public class Spinning : MonoBehaviour {
 	public int CurrentLane;
 	public float Boost;
 	public GameObject AcornPrefab;
+	public GameObject ThornPrefab;
+	public GameObject ThornSpurt;
+	public GameObject GameOverText;
+	
+	public AudioClip swipeSound;
+	
 	Vector3 lastMousePos;
 	bool usedMouse;
 	float Stamina;
 	float Speed;
 	float minSeconds = 2.0f;
 	float maxSeconds = 6.5f;
-
+	float thornMinSeconds = 6.0f;
+	float thornMaxSeconds = 8.0f;
 	void Start () {
 		Speed=10;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
+		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
+		//Invoke ("gameOver",2.0f);
 	}
 	
 
@@ -28,9 +37,11 @@ public class Spinning : MonoBehaviour {
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
+		/*
+		// For iPad use only
 		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
 	        Touch primaryTouch = Input.GetTouch(0);
-	        float direction  = primaryTouch.deltaPosition.x ;
+	        float direction = -primaryTouch.deltaPosition.x ;
 			float moveDistance = 50;
 			if(direction < 0) {
 				//Swipe Left
@@ -43,6 +54,7 @@ public class Spinning : MonoBehaviour {
 	
 			}
 		}
+		*/
 		
 		// The mouse control is for testing only
 		if (Input.GetMouseButtonDown(0)) {
@@ -66,10 +78,20 @@ public class Spinning : MonoBehaviour {
 			if(direction < 0) {
 				//Swipe Left
 				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
 				//Debug.Log("MoveLeft");
 			} else if(direction > 0) {
 				//Swipe Right
 				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
 				//Debug.Log("MoveRight");
 	
 			}
@@ -131,8 +153,8 @@ public class Spinning : MonoBehaviour {
 		}
 		Vector2 newPosition = Random.insideUnitCircle;
 		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
-		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
-			(newPosition.y + MerryGoRound.transform.position.y),80.0f);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 100) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y- 50),80.0f);
 	}
 	
 	void AcornSpawn() {
@@ -146,7 +168,7 @@ public class Spinning : MonoBehaviour {
 		obj.transform.parent = MerryGoRound.transform;
 		
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
-		Vector3 originalPos =  obj.transform.position;
+		
 		float waitTime = 0.0f;
 		
 		switch(track) {
@@ -169,6 +191,81 @@ public class Spinning : MonoBehaviour {
 		DestroyObject(obj);
 		
 		
+	}
+	
+	void ThornSpawn() {
+		StartCoroutine("ThornSpawnCoRoutine");
+	}
+	Vector3 getRandomThornPosition(int track) {
+		
+		float radius = 0.0f;
+		switch(track) {
+		case 0:
+			radius = 65.0f;
+			break;
+		case 1:
+			radius = 125.0f;
+			break;
+		case 2:
+			radius = 170.0f;
+			break;
+		case 3:
+			radius = 218.0f;
+			break;
+		case 4:
+			radius = 272.0f;
+			break;
+		}
+		Vector2 newPosition = Random.insideUnitCircle;
+		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y),60.0f);
+	}
+	
+	IEnumerator ThornSpawnCoRoutine() 
+	{
+		int track = Random.Range(1,5);
+		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
+		obj.transform.parent = MerryGoRound.transform;
+		
+		GameObject obj2 = (GameObject)Instantiate(ThornSpurt,obj.transform.position,Quaternion.identity);
+		obj2.transform.parent = MerryGoRound.transform;
+		
+		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
+		
+		float waitTime = 0.0f;
+		
+		switch(track) {
+		case 1:
+			waitTime = 8.0f;
+			break;
+		case 2:
+			waitTime = 8.2f;
+			break;
+		case 3:
+			waitTime = 8.4f;
+			break;
+		case 4:
+			waitTime = 8.5f;
+			break;
+			
+		}
+		yield return new WaitForSeconds(waitTime);
+		
+		DestroyObject(obj);
+		
+		
+	}
+	
+	public void gameOver() {
+		Debug.LogError(@"GAME OVER" + MerryGoRound);
+		Character.animation.Stop();
+		Character.transform.parent = MerryGoRound.transform;
+		
+		CancelInvoke();
+		StopAllCoroutines();
+		GameOverText.active = true;
+		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
 	}
 }
 
