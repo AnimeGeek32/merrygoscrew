@@ -20,44 +20,49 @@ public class Spinning : MonoBehaviour {
 	bool usedMouse;
 	float Stamina;
 	public float Speed;
-	float minSeconds = 1.0f;
-	float maxSeconds = 1.0f;
-	float thornMinSeconds = 6.0f;
+	public float vineCrawlDelay;
+	public float ScrewSpeed;
+	public float SecondsForVinesToGrow;
+	
+	float minSeconds = 2.0f;
+	float maxSeconds = 4.5f;
+	float thornMinSeconds = 5.0f;
 	float thornMaxSeconds = 8.0f;
 	float currentElevation = 0;
 	float originalScrewPosition = 0;
-	//float getElevation {
-		//Elev = CurrentElev + (CurrentSpeed * (currentTime - lastTime))
-		
-			
-	//}
+	
 	void Start () {
 		Speed=15;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
-		//Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
+		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		lastMousePos = Input.mousePosition;
 		CurrentLane = 2;
 		originalScrewPosition = Screw.transform.position.y;
-		Invoke("startVineCrawl",3.0f);
+		Invoke("startVineCrawl",vineCrawlDelay);
 		
-			
-		//StartCoroutine("AcornSpawn");
+		
+		iPhoneUtils.PlayMovie("intro", Color.black, iPhoneMovieControlMode.CancelOnTouch);
 		//Invoke ("gameOver",2.0f);
 	}
 	
 	void startVineCrawl() {
 		
- 		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),6.0f * 60.0f);
+ 		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),SecondsForVinesToGrow);
 	}
 	void Update () 
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
 		
-		currentElevation = currentElevation + ((Speed*0.5f) * Time.deltaTime);
-		iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
+		currentElevation = currentElevation + ((Speed*ScrewSpeed) * Time.deltaTime);
+		if(currentElevation < 630) { //Check if elevation is at the top of screen then end game
+			iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
+		} else {
+			gameOver();	
+		}
+		
 		
 		//Debug.Log(Screw + " ==> Elevation: " + currentElevation);
 		/*
@@ -171,24 +176,25 @@ public class Spinning : MonoBehaviour {
 		
 		float radius = 0.0f;
 		switch(track) {
-		case 0:
-			radius = 65.0f;
-			break;
+		
 		case 1:
 			radius = 125.0f;
 			break;
 		case 2:
-			radius = 170.0f;
-			break;
-		case 3:
 			radius = 218.0f;
 			break;
-		case 4:
+		case 3:
 			radius = 272.0f;
+			break;
+		case 4:
+			radius = 326.0f;
+			break;
+		case 5:
+			radius = 380.0f;
 			break;
 		}
 		Vector2 newPosition = Random.insideUnitCircle;
-		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
+		Debug.LogError("Track: " + track + " Pos: " + radius );
 		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 100) + radius,
 			(newPosition.y + MerryGoRound.transform.position.y- 50),80.0f);
 	}
@@ -221,9 +227,11 @@ public class Spinning : MonoBehaviour {
 		case 4:
 			waitTime = 6.5f;
 			break;
-			
+		case 5:
+			waitTime = 6.8f;
+			break;
 		}
-		waitTime = 10.0f;
+		//waitTime = 10.0f;
 		yield return new WaitForSeconds(waitTime);
 		
 		DestroyObject(obj);
@@ -303,6 +311,7 @@ public class Spinning : MonoBehaviour {
 		CancelInvoke();
 		StopAllCoroutines();
 		GameOverText.active = true;
+		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", 10.0f, "y", 30));
 		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
 	}
 
