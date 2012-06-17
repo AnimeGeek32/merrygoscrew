@@ -28,7 +28,7 @@ public class Spinning : MonoBehaviour {
 	float maxSeconds = 4.5f;
 	float thornMinSeconds = 5.0f;
 	float thornMaxSeconds = 8.0f;
-	float currentElevation = 0;
+	public float currentElevation = 0;
 	float originalScrewPosition = 0;
 	
 	void Start () {
@@ -51,7 +51,7 @@ public class Spinning : MonoBehaviour {
 		
  		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),SecondsForVinesToGrow);
 	}
-	void Update () 
+	public void Update () 
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
