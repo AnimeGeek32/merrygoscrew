@@ -11,6 +11,8 @@ public class Spinning : MonoBehaviour {
 	public GameObject ThornPrefab;
 	public GameObject ThornSpurt;
 	public GameObject GameOverText;
+	public GameObject Screw;
+	public GameObject Vines;
 	
 	public AudioClip swipeSound;
 	
@@ -22,6 +24,13 @@ public class Spinning : MonoBehaviour {
 	float maxSeconds = 1.0f;
 	float thornMinSeconds = 6.0f;
 	float thornMaxSeconds = 8.0f;
+	float currentElevation = 0;
+	float originalScrewPosition = 0;
+	//float getElevation {
+		//Elev = CurrentElev + (CurrentSpeed * (currentTime - lastTime))
+		
+			
+	//}
 	void Start () {
 		Speed=15;
 		Boost=2.5f;	
@@ -30,15 +39,27 @@ public class Spinning : MonoBehaviour {
 		usedMouse = false;
 		lastMousePos = Input.mousePosition;
 		CurrentLane = 2;
+		originalScrewPosition = Screw.transform.position.y;
+		Invoke("startVineCrawl",3.0f);
+		
+			
 		//StartCoroutine("AcornSpawn");
 		//Invoke ("gameOver",2.0f);
 	}
 	
-
+	void startVineCrawl() {
+		
+ 		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),6.0f * 60.0f);
+	}
 	void Update () 
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
+		
+		currentElevation = currentElevation + ((Speed*0.5f) * Time.deltaTime);
+		iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
+		
+		//Debug.Log(Screw + " ==> Elevation: " + currentElevation);
 		/*
 		// For iPad use only
 		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
@@ -173,7 +194,7 @@ public class Spinning : MonoBehaviour {
 	}
 	
 	void AcornSpawn() {
-		Debug.Log("SPAWN ACORN");
+		//Debug.Log("SPAWN ACORN");
 		StartCoroutine("AcornSpawnCoRoutine");
 	}
 	
