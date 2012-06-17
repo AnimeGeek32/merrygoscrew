@@ -17,7 +17,7 @@ public class CollisionLogic : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider collision) //when you hit the acorn
 	{
-		//Debug.Log(collision.gameObject.tag + " ==> " + collision.gameObject.name);
+		Debug.Log(collision.gameObject.tag + " ==> " + collision.gameObject.name);
 		if((collision.gameObject.tag == "Player") && (!isGathered)) {
 			isGathered=true;
 			
