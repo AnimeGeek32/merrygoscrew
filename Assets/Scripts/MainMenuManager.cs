@@ -10,6 +10,7 @@ public class MainMenuManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		/*
 		if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
 		{
 			Debug.Log("Touched");
@@ -21,7 +22,7 @@ public class MainMenuManager : MonoBehaviour {
 				Application.LoadLevel("Main");
 			}
 		}
-		
+		*/
 		
 		if(Input.GetMouseButton(0))
 		{
@@ -29,6 +30,7 @@ public class MainMenuManager : MonoBehaviour {
 			if(guiTexture.HitTest(Input.mousePosition) && guiTexture.name == "PlayButton")
 			{
 				Debug.Log("PlayButton touched");
+				Handheld.PlayFullScreenMovie("intro.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 				Application.LoadLevel("Main");
 			}
 		}

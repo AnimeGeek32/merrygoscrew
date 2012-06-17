@@ -313,15 +313,19 @@ public class Spinning : MonoBehaviour {
 		if(!isSuccessful){
 			Character.animation.Stop();
 			Character.transform.parent = MerryGoRound.transform;
-			GameOverText.active = true;
+			//GameOverText.active = true;
 			iTween.RotateBy(MerryGoRound,iTween.Hash("speed", 10.0f, "y", 30));
+			Handheld.PlayFullScreenMovie("intro.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		} else {
 			float alphaFadeValue = Mathf.Clamp01(Time.deltaTime / 5);
 
 			//GUI.color = new Color(0, 0, 0, alphaFadeValue);
 			//GameObject blackTexture = GameObject.Find("BlackTexture");
 			//GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), blackTexture );
+			
+			Handheld.PlayFullScreenMovie("intro.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		}
+		Application.LoadLevel("TitleScreen");
 	}
 
 	void SquirrelSnap(int targetLane)
