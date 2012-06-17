@@ -9,6 +9,7 @@ public class Spinning : MonoBehaviour {
 	public float Boost;
 	public GameObject AcornPrefab;
 	public GameObject ThornPrefab;
+	public AudioClip swipeSound;
 	
 	Vector3 lastMousePos;
 	bool usedMouse;
@@ -73,10 +74,20 @@ public class Spinning : MonoBehaviour {
 			if(direction < 0) {
 				//Swipe Left
 				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
 				//Debug.Log("MoveLeft");
 			} else if(direction > 0) {
 				//Swipe Right
 				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
 				//Debug.Log("MoveRight");
 	
 			}
