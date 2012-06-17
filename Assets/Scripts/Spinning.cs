@@ -8,17 +8,21 @@ public class Spinning : MonoBehaviour {
 	public int CurrentLane;
 	public float Boost;
 	public GameObject AcornPrefab;
+	public GameObject ThornPrefab;
+	
 	Vector3 lastMousePos;
 	bool usedMouse;
 	float Stamina;
 	float Speed;
 	float minSeconds = 2.0f;
 	float maxSeconds = 6.5f;
-
+	float thornMinSeconds = 6.0f;
+	float thornMaxSeconds = 8.0f;
 	void Start () {
 		Speed=10;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
+		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
 	}
@@ -134,8 +138,8 @@ public class Spinning : MonoBehaviour {
 		}
 		Vector2 newPosition = Random.insideUnitCircle;
 		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
-		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
-			(newPosition.y + MerryGoRound.transform.position.y),80.0f);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 100) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y- 50),80.0f);
 	}
 	
 	void AcornSpawn() {
@@ -149,7 +153,7 @@ public class Spinning : MonoBehaviour {
 		obj.transform.parent = MerryGoRound.transform;
 		
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
-		Vector3 originalPos =  obj.transform.position;
+		
 		float waitTime = 0.0f;
 		
 		switch(track) {
@@ -164,6 +168,67 @@ public class Spinning : MonoBehaviour {
 			break;
 		case 4:
 			waitTime = 6.5f;
+			break;
+			
+		}
+		yield return new WaitForSeconds(waitTime);
+		
+		DestroyObject(obj);
+		
+		
+	}
+	
+	void ThornSpawn() {
+		StartCoroutine("ThornSpawnCoRoutine");
+	}
+	Vector3 getRandomThornPosition(int track) {
+		
+		float radius = 0.0f;
+		switch(track) {
+		case 0:
+			radius = 65.0f;
+			break;
+		case 1:
+			radius = 125.0f;
+			break;
+		case 2:
+			radius = 170.0f;
+			break;
+		case 3:
+			radius = 218.0f;
+			break;
+		case 4:
+			radius = 272.0f;
+			break;
+		}
+		Vector2 newPosition = Random.insideUnitCircle;
+		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y),60.0f);
+	}
+	
+	IEnumerator ThornSpawnCoRoutine() 
+	{
+		int track = Random.Range(1,5);
+		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
+		obj.transform.parent = MerryGoRound.transform;
+		
+		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
+		
+		float waitTime = 0.0f;
+		
+		switch(track) {
+		case 1:
+			waitTime = 8.0f;
+			break;
+		case 2:
+			waitTime = 8.2f;
+			break;
+		case 3:
+			waitTime = 8.4f;
+			break;
+		case 4:
+			waitTime = 8.5f;
 			break;
 			
 		}
