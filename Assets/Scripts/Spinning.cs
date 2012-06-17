@@ -18,15 +18,15 @@ public class Spinning : MonoBehaviour {
 	bool usedMouse;
 	float Stamina;
 	float Speed;
-	float minSeconds = 2.0f;
-	float maxSeconds = 6.5f;
+	float minSeconds = 1.0f;
+	float maxSeconds = 1.0f;
 	float thornMinSeconds = 6.0f;
 	float thornMaxSeconds = 8.0f;
 	void Start () {
 		Speed=10;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
-		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
+		//Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
 		//Invoke ("gameOver",2.0f);
@@ -158,6 +158,7 @@ public class Spinning : MonoBehaviour {
 	}
 	
 	void AcornSpawn() {
+		Debug.Log("SPAWN ACORN");
 		StartCoroutine("AcornSpawnCoRoutine");
 	}
 	
@@ -186,6 +187,7 @@ public class Spinning : MonoBehaviour {
 			break;
 			
 		}
+		waitTime = 10.0f;
 		yield return new WaitForSeconds(waitTime);
 		
 		DestroyObject(obj);

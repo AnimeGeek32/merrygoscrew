@@ -12,11 +12,11 @@ public class AudioStretchComp : MonoBehaviour {
 	
 	void Update () 
 	{
-	 if(staminaMeterManager.getStaminaLevel<2)
-			audio.pitch=.73;
+	 if(staminaMeterManager.getStaminaLevel() < 2)
+			audio.pitch=.73f;
 		
-	if(staminaMeterManager.getStaminaLevel>5)
-			audio.pitch=1.33;
+	if(staminaMeterManager.getStaminaLevel() > 5)
+			audio.pitch=1.33f;
 		
 	
 	}

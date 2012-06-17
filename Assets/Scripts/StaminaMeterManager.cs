@@ -19,7 +19,7 @@ public class StaminaMeterManager : MonoBehaviour {
 			}
 		}
 		
-		InvokeRepeating("decrementStamina",6.0f,3);
+		InvokeRepeating("decrementStamina",6.0f,5);
 	}
 	
 	// Update is called once per frame
@@ -49,8 +49,8 @@ public class StaminaMeterManager : MonoBehaviour {
 		
 		if(staminaLevel < 0) {
 			//Game over	
-			GameObject gameManager  = GameObject.Find("GameManager");
-			gameManager.GetComponent<Spinning>().gameOver();
+			//GameObject gameManager  = GameObject.Find("GameManager");
+			//gameManager.GetComponent<Spinning>().gameOver();
 		}
 	}
 	
