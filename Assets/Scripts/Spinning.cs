@@ -16,6 +16,7 @@ public class Spinning : MonoBehaviour {
 	//public GameObject Camera;
 	
 	public AudioClip swipeSound;
+	public AudioClip SpinPitch;
 	
 	Vector3 lastMousePos;
 	bool usedMouse;
@@ -25,10 +26,10 @@ public class Spinning : MonoBehaviour {
 	public float ScrewSpeed;
 	public float SecondsForVinesToGrow;
 	
-	float minSeconds = 2.0f;
-	float maxSeconds = 4.5f;
-	float thornMinSeconds = 2.0f;
-	float thornMaxSeconds = 3.0f;
+	float minSeconds = 3.0f;
+	float maxSeconds = 5.5f;
+	float thornMinSeconds = 1.5f;
+	float thornMaxSeconds = 2.0f;
 	public float currentElevation = 0;
 	float originalScrewPosition = 0;
 	bool didStart = false;
@@ -119,22 +120,27 @@ public class Spinning : MonoBehaviour {
 		case 1:
 			Debug.Log("Lane 1");
 			Speed = 10;
+			audio.pitch=.75f;
 			break;
 		case 2:
 			Debug.Log("Lane 2");
 			Speed = 15;
+			audio.pitch=.85f;
 			break;
 		case 3:
 			Debug.Log("Lane 3");
 			Speed = 20;
+			audio.pitch=.95f;
 			break;
 		case 4:
 			Debug.Log("Lane 4");
 			Speed = 25;
+			audio.pitch=1.05f;
 			break;
 		case 5:
 			Debug.Log("Lane 5");
 			Speed = 30;
+			audio.pitch=1.15f;
 			break;
 		default:
 			Debug.Log("Unknown lane");
@@ -296,7 +302,7 @@ public class Spinning : MonoBehaviour {
 			Handheld.PlayFullScreenMovie("DEATH.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		} else {
 			
-			Handheld.PlayFullScreenMovie("END.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
+			Handheld.PlayFullScreenMovie("END.mp4",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		}
 		Application.LoadLevel("TitleScreen");
 	}
