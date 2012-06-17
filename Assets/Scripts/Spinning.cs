@@ -27,12 +27,15 @@ public class Spinning : MonoBehaviour {
 	
 	float minSeconds = 2.0f;
 	float maxSeconds = 4.5f;
-	float thornMinSeconds = 5.0f;
-	float thornMaxSeconds = 8.0f;
+	float thornMinSeconds = 2.0f;
+	float thornMaxSeconds = 3.0f;
 	public float currentElevation = 0;
 	float originalScrewPosition = 0;
 	
 	void Start () {
+		Invoke("beginGame",2.0f);
+	}
+	void beginGame(){
 		Speed=15;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
@@ -41,12 +44,8 @@ public class Spinning : MonoBehaviour {
 		lastMousePos = Input.mousePosition;
 		CurrentLane = 2;
 		originalScrewPosition = Screw.transform.position.y;
-		Invoke("startVineCrawl",vineCrawlDelay);
-		
-				
-		//gameOver(true);
+		Invoke("startVineCrawl",vineCrawlDelay);	
 	}
-	
 	void startVineCrawl() {
 		
  		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),SecondsForVinesToGrow);
@@ -195,8 +194,8 @@ public class Spinning : MonoBehaviour {
 		}
 		Vector2 newPosition = Random.insideUnitCircle;
 		Debug.LogError("Track: " + track + " Pos: " + radius );
-		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 100) + radius,
-			(newPosition.y + MerryGoRound.transform.position.y- 50),80.0f);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 200) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y- 150),80.0f);
 	}
 	
 	void AcornSpawn() {
@@ -210,6 +209,7 @@ public class Spinning : MonoBehaviour {
 		GameObject obj = (GameObject)Instantiate(AcornPrefab,getRandomPosition(track),Quaternion.identity);
 		obj.transform.parent = MerryGoRound.transform;
 		
+		//iTween.ScaleTo(obj,iTween.Hash("scale",0.75f));
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
 		
 		float waitTime = 0.0f;
@@ -273,9 +273,9 @@ public class Spinning : MonoBehaviour {
 		int track = Random.Range(1,5);
 		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
 		obj.transform.parent = MerryGoRound.transform;
-		
-		GameObject obj2 = (GameObject)Instantiate(ThornSpurt,obj.transform.position,Quaternion.identity);
-		obj2.transform.parent = MerryGoRound.transform;
+		Transform poof = obj.transform.Find("ParticleVinePoof");
+		poof.gameObject.active = true;
+
 		
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		
@@ -315,15 +315,10 @@ public class Spinning : MonoBehaviour {
 			Character.transform.parent = MerryGoRound.transform;
 			//GameOverText.active = true;
 			iTween.RotateBy(MerryGoRound,iTween.Hash("speed", 10.0f, "y", 30));
-			Handheld.PlayFullScreenMovie("intro.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
+			Handheld.PlayFullScreenMovie("DEATH.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		} else {
-			float alphaFadeValue = Mathf.Clamp01(Time.deltaTime / 5);
-
-			//GUI.color = new Color(0, 0, 0, alphaFadeValue);
-			//GameObject blackTexture = GameObject.Find("BlackTexture");
-			//GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), blackTexture );
 			
-			Handheld.PlayFullScreenMovie("intro.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
+			Handheld.PlayFullScreenMovie("END.mov",Color.black,FullScreenMovieControlMode.Full,FullScreenMovieScalingMode.AspectFit);
 		}
 		Application.LoadLevel("TitleScreen");
 	}

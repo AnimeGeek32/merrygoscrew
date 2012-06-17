@@ -6,7 +6,11 @@ public class StaminaMeterManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		staminaLevel = 1;
+		Invoke("beginGame",2.5f);
+	}
+	
+	void beginGame() {
+		staminaLevel = 2;
 		for(int i = 0; i < 10; i++)
 		{
 			if( i <= staminaLevel )
@@ -19,9 +23,8 @@ public class StaminaMeterManager : MonoBehaviour {
 			}
 		}
 		
-		InvokeRepeating("decrementStamina",6.0f,5);
+		InvokeRepeating("decrementStamina",6.0f,5);	
 	}
-	
 	// Update is called once per frame
 	void Update () {
 	
