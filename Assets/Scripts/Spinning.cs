@@ -24,7 +24,7 @@ public class Spinning : MonoBehaviour {
 	float maxSeconds = 1.0f;
 	float thornMinSeconds = 6.0f;
 	float thornMaxSeconds = 8.0f;
-	float currentElevation = 0;
+	public float currentElevation = 0;
 	float originalScrewPosition = 0;
 	//float getElevation {
 		//Elev = CurrentElev + (CurrentSpeed * (currentTime - lastTime))
@@ -51,7 +51,7 @@ public class Spinning : MonoBehaviour {
 		
  		iTween.MoveBy(Vines,new Vector3(0.0f,Vines.renderer.bounds.size.y - 100.0f ,0f),6.0f * 60.0f);
 	}
-	void Update () 
+	public void Update () 
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
