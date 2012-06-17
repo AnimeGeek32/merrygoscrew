@@ -26,6 +26,7 @@ public class Spinning : MonoBehaviour {
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
+		Invoke ("gameOver",2.0f);
 	}
 	
 
@@ -248,6 +249,14 @@ public class Spinning : MonoBehaviour {
 		DestroyObject(obj);
 		
 		
+	}
+	
+	public void gameOver() {
+		Debug.LogError(@"GAME OVER" + MerryGoRound);
+		Character.animation.Stop();
+		Character.transform.parent = MerryGoRound.transform;
+		
+		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
 	}
 }
 
