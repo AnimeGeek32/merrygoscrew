@@ -22,7 +22,7 @@ public class MainMenuManager : MonoBehaviour {
 			}
 		}
 		
-		/*
+		
 		if(Input.GetMouseButton(0))
 		{
 			Debug.Log("Touched");
@@ -32,6 +32,6 @@ public class MainMenuManager : MonoBehaviour {
 				Application.LoadLevel("Main");
 			}
 		}
-		*/
+		
 	}
 }
