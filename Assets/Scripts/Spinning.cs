@@ -287,7 +287,7 @@ public class Spinning : MonoBehaviour {
 
 	void SquirrelSnap(int targetLane)
 	{
-		iTween.MoveTo(Character, iTween.Hash("position", GameObject.Find("Lane" + targetLane).transform));
+		iTween.MoveTo(Character, iTween.Hash("position", GameObject.Find("LaneWaypoint" + targetLane).transform));
 	}
 
 
