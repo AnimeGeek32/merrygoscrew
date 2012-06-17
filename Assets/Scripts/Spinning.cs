@@ -28,9 +28,11 @@ public class Spinning : MonoBehaviour {
 	{
 		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
 		
+		/*
+		// For iPad use only
 		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
 	        Touch primaryTouch = Input.GetTouch(0);
-	        float direction  = primaryTouch.deltaPosition.x ;
+	        float direction = -primaryTouch.deltaPosition.x ;
 			float moveDistance = 50;
 			if(direction < 0) {
 				//Swipe Left
@@ -43,6 +45,7 @@ public class Spinning : MonoBehaviour {
 	
 			}
 		}
+		*/
 		
 		// The mouse control is for testing only
 		if (Input.GetMouseButtonDown(0)) {
