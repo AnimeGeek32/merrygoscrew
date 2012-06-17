@@ -13,6 +13,7 @@ public class Spinning : MonoBehaviour {
 	public GameObject GameOverText;
 	public GameObject Screw;
 	public GameObject Vines;
+	//public GameObject Camera;
 	
 	public AudioClip swipeSound;
 	
@@ -42,9 +43,8 @@ public class Spinning : MonoBehaviour {
 		originalScrewPosition = Screw.transform.position.y;
 		Invoke("startVineCrawl",vineCrawlDelay);
 		
-		
-		
-		//Invoke ("gameOver",2.0f);
+				
+		gameOver(true);
 	}
 	
 	void startVineCrawl() {
@@ -60,7 +60,7 @@ public class Spinning : MonoBehaviour {
 		if(currentElevation < 630) { //Check if elevation is at the top of screen then end game
 			iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
 		} else {
-			gameOver();	
+			gameOver(true);	
 		}
 		
 		
@@ -303,16 +303,24 @@ public class Spinning : MonoBehaviour {
 		
 	}
 	
-	public void gameOver() {
-		Debug.LogError(@"GAME OVER" + MerryGoRound);
-		Character.animation.Stop();
-		Character.transform.parent = MerryGoRound.transform;
+	public void gameOver(bool isSuccessful) {
+		//Debug.LogError(@"GAME OVER" + MerryGoRound);
+		
+		
 		
 		CancelInvoke();
 		StopAllCoroutines();
-		GameOverText.active = true;
-		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", 10.0f, "y", 30));
-		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
+		if(!isSuccessful){
+			Character.animation.Stop();
+			Character.transform.parent = MerryGoRound.transform;
+			GameOverText.active = true;
+			iTween.RotateBy(MerryGoRound,iTween.Hash("speed", 10.0f, "y", 30));
+		} else {
+			float alphaFadeValue = Mathf.Clamp01(Time.deltaTime / 5);
+
+			GUI.color = new Color(0, 0, 0, alphaFadeValue);
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), blackTexture );
+		}
 	}
 
 	void SquirrelSnap(int targetLane)
