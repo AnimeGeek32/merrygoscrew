@@ -6,7 +6,7 @@ public class StaminaMeterManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Invoke("beginGame",2.5f);
+		Invoke("beginGame",3.5f);
 	}
 	
 	void beginGame() {

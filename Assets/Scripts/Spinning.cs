@@ -25,15 +25,15 @@ public class Spinning : MonoBehaviour {
 	public float ScrewSpeed;
 	public float SecondsForVinesToGrow;
 	
-	float minSeconds = 2.0f;
-	float maxSeconds = 4.5f;
-	float thornMinSeconds = 2.0f;
-	float thornMaxSeconds = 3.0f;
+	float minSeconds = 3.0f;
+	float maxSeconds = 5.5f;
+	float thornMinSeconds = 1.0f;
+	float thornMaxSeconds = 2.0f;
 	public float currentElevation = 0;
 	float originalScrewPosition = 0;
 	bool didStart = false;
 	void Start () {
-		Invoke("beginGame",2.0f);
+		Invoke("beginGame",3.0f);
 	}
 	void beginGame(){
 		didStart = true;
