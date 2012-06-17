@@ -235,21 +235,25 @@ public class Spinning : MonoBehaviour {
 		}
 		Vector2 newPosition = Random.insideUnitCircle;
 		//Debug.LogError("Track: " + track + " Pos: " + newPosition);
-		return new Vector3((newPosition.x + MerryGoRound.transform.position.x) + radius,
-			(newPosition.y + MerryGoRound.transform.position.y),60.0f);
+		return new Vector3((newPosition.x + MerryGoRound.transform.position.x - 30) + radius,
+			(newPosition.y + MerryGoRound.transform.position.y - 30),60.0f);
 	}
 	
 	IEnumerator ThornSpawnCoRoutine() 
 	{
-		int track = Random.Range(1,5);
+		int track =1;
+		if(CurrentLane == 1)
+			track = Random.Range(1, 3);
+		else if(CurrentLane == 5)
+			track = Random.Range(3,5);
+		else
+			track = Random.Range(CurrentLane-1, CurrentLane+1);
+		
+		
 		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
 		obj.transform.parent = MerryGoRound.transform;
 		
 		
-		
-		
-		
-
 		
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		
