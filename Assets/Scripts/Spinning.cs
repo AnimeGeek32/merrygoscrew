@@ -17,17 +17,19 @@ public class Spinning : MonoBehaviour {
 	Vector3 lastMousePos;
 	bool usedMouse;
 	float Stamina;
-	float Speed;
+	public float Speed;
 	float minSeconds = 1.0f;
 	float maxSeconds = 1.0f;
 	float thornMinSeconds = 6.0f;
 	float thornMaxSeconds = 8.0f;
 	void Start () {
-		Speed=10;
+		Speed=15;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
 		//Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
+		lastMousePos = Input.mousePosition;
+		CurrentLane = 2;
 		//StartCoroutine("AcornSpawn");
 		//Invoke ("gameOver",2.0f);
 	}
@@ -42,14 +44,28 @@ public class Spinning : MonoBehaviour {
 		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
 	        Touch primaryTouch = Input.GetTouch(0);
 	        float direction = -primaryTouch.deltaPosition.x ;
-			float moveDistance = 50;
+			//float moveDistance = 50;
 			if(direction < 0) {
 				//Swipe Left
-				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				//iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				SquirrelSnap(CurrentLane--);
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
+				SpeedCalc();
 				Debug.Log("MoveLeft");
 			} else {
 				//Swipe Right
-				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				//iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				SquirrelSnap(CurrentLane++);
+				if(!audio.isPlaying)
+				{
+					audio.clip = swipeSound;
+					audio.Play();
+				}
+				SpeedCalc();
 				Debug.Log("MoveRight");
 	
 			}
@@ -57,7 +73,7 @@ public class Spinning : MonoBehaviour {
 		*/
 		
 		// The mouse control is for testing only
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonDown(0) && !usedMouse) {
 			//Debug.Log("Left mouse button down");
 			//Debug.Log("Setting used mouse to true");
 			lastMousePos = Input.mousePosition;
@@ -66,44 +82,43 @@ public class Spinning : MonoBehaviour {
 		
 		if (Input.GetMouseButtonUp(0)) {
 			//Debug.Log("Left mouse button up");
-			usedMouse = false;
-		}
-		
-		if(usedMouse)
-		{
-			//Debug.Log("Swiping");
 			Vector3 currentMousePosition = Input.mousePosition;
-	        float direction = lastMousePos.x - currentMousePosition.x;
-			float moveDistance = 50;
-			if(direction < 0) {
+	        float direction = currentMousePosition.x - lastMousePos.x;
+			//float moveDistance = 50;
+			if(direction < 0 && CurrentLane > 1) {
 				//Swipe Left
-				iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				//iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
+				CurrentLane--;
+				SquirrelSnap(CurrentLane);
 				if(!audio.isPlaying)
 				{
 					audio.clip = swipeSound;
 					audio.Play();
 				}
+				SpeedCalc();
 				//Debug.Log("MoveLeft");
-			} else if(direction > 0) {
+			} else if(direction > 0 && CurrentLane < 5) {
 				//Swipe Right
-				iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				//iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
+				CurrentLane++;
+				SquirrelSnap(CurrentLane);
 				if(!audio.isPlaying)
 				{
 					audio.clip = swipeSound;
 					audio.Play();
 				}
-				//Debug.Log("MoveRight");
-	
+				SpeedCalc();
 			}
+			usedMouse = false;
 		}
 	}
 	
 	
 	
-	/*
+
 	void SpeedCalc()
 	{
-		switch(currentLane)
+		switch(CurrentLane)
 		{
 		case 1:
 			Debug.Log("Lane 1");
@@ -129,7 +144,7 @@ public class Spinning : MonoBehaviour {
 			Debug.Log("Unknown lane");
 			break;
 		}
-	}*/
+	}
 	
 	Vector3 getRandomPosition(int track) {
 		
@@ -269,5 +284,13 @@ public class Spinning : MonoBehaviour {
 		GameOverText.active = true;
 		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
 	}
+
+	void SquirrelSnap(int targetLane)
+	{
+		iTween.MoveTo(Character, iTween.Hash("position", GameObject.Find("Lane" + targetLane).transform));
+	}
+
+
+
 }
 

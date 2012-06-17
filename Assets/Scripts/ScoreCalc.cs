@@ -2,14 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class ScoreCalc : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+	public StaminaMeterManager staminaMeterManager;
+	public Spinning spinning;
+	public int Elevation;
 	
+	void Start () {
+		Elevation = 0;
 	}
 	
-	// Update is called once per frame
 	void Update () {
-	
+		Elevation += (int)((spinning.Speed + staminaMeterManager.getStaminaLevel()) / Time.deltaTime);
 	}
 }
