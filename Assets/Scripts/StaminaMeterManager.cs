@@ -47,7 +47,7 @@ public class StaminaMeterManager : MonoBehaviour {
 			}
 		}
 		
-		if(staminaLevel <= 0) {
+		if(staminaLevel < 0) {
 			//Game over	
 			GameObject gameManager  = GameObject.Find("GameManager");
 			gameManager.GetComponent<Spinning>().gameOver();

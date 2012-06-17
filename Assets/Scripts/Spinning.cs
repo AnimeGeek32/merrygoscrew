@@ -9,6 +9,9 @@ public class Spinning : MonoBehaviour {
 	public float Boost;
 	public GameObject AcornPrefab;
 	public GameObject ThornPrefab;
+	public GameObject ThornSpurt;
+	public GameObject GameOverText;
+	
 	public AudioClip swipeSound;
 	
 	Vector3 lastMousePos;
@@ -26,7 +29,7 @@ public class Spinning : MonoBehaviour {
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		usedMouse = false;
 		//StartCoroutine("AcornSpawn");
-		Invoke ("gameOver",10.0f);
+		//Invoke ("gameOver",2.0f);
 	}
 	
 
@@ -225,6 +228,9 @@ public class Spinning : MonoBehaviour {
 		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
 		obj.transform.parent = MerryGoRound.transform;
 		
+		GameObject obj2 = (GameObject)Instantiate(ThornSpurt,obj.transform.position,Quaternion.identity);
+		obj2.transform.parent = MerryGoRound.transform;
+		
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
 		
 		float waitTime = 0.0f;
@@ -258,6 +264,7 @@ public class Spinning : MonoBehaviour {
 		
 		CancelInvoke();
 		StopAllCoroutines();
+		GameOverText.active = true;
 		//iTween.RotateUpdate(MerryGoRound,iTween.Hash("speed", 20.0f));
 	}
 }
