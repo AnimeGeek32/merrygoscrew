@@ -4,6 +4,7 @@ using System.Collections;
 public class VineCollosion : MonoBehaviour {
 	public AudioClip hitAudio;
 	bool didHit=false;
+	int frameCount;
 	// Use this for initialization
 	void Start () {
 	
@@ -11,7 +12,13 @@ public class VineCollosion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		/*if(frameCount == 300) {
+			Transform poof = transform.Find("ParticleVinePoof");
+			poof.gameObject.active = true;	
+		} else if (frameCount < 300) {
+			frameCount++;	
+		}*/
+			
 	}
 	
 	

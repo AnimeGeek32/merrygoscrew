@@ -31,11 +31,12 @@ public class Spinning : MonoBehaviour {
 	float thornMaxSeconds = 3.0f;
 	public float currentElevation = 0;
 	float originalScrewPosition = 0;
-	
+	bool didStart = false;
 	void Start () {
 		Invoke("beginGame",2.0f);
 	}
 	void beginGame(){
+		didStart = true;
 		Speed=15;
 		Boost=2.5f;	
 		Invoke("AcornSpawn",Random.Range(minSeconds,maxSeconds));
@@ -52,50 +53,18 @@ public class Spinning : MonoBehaviour {
 	}
 	public void Update () 
 	{
-		iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
-		
-		
-		currentElevation = currentElevation + ((Speed*ScrewSpeed) * Time.deltaTime);
-		if(currentElevation < 630) { //Check if elevation is at the top of screen then end game
-			iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
-		} else {
-			gameOver(true);	
-		}
-		
-		
-		//Debug.Log(Screw + " ==> Elevation: " + currentElevation);
-		/*
-		// For iPad use only
-		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
-	        Touch primaryTouch = Input.GetTouch(0);
-	        float direction = -primaryTouch.deltaPosition.x ;
-			//float moveDistance = 50;
-			if(direction < 0) {
-				//Swipe Left
-				//iTween.MoveBy(Character,iTween.Hash("x", -moveDistance));
-				SquirrelSnap(CurrentLane--);
-				if(!audio.isPlaying)
-				{
-					audio.clip = swipeSound;
-					audio.Play();
-				}
-				SpeedCalc();
-				Debug.Log("MoveLeft");
+		if(didStart) {
+			iTween.RotateBy(MerryGoRound,iTween.Hash("speed", Speed, "y", 30));
+			
+			
+			currentElevation = currentElevation + ((Speed*ScrewSpeed) * Time.deltaTime);
+			if(currentElevation < 630) { //Check if elevation is at the top of screen then end game
+				iTween.MoveTo(Screw,iTween.Hash("y",Mathf.Round(currentElevation + originalScrewPosition)));
 			} else {
-				//Swipe Right
-				//iTween.MoveBy(Character,iTween.Hash("x", moveDistance));
-				SquirrelSnap(CurrentLane++);
-				if(!audio.isPlaying)
-				{
-					audio.clip = swipeSound;
-					audio.Play();
-				}
-				SpeedCalc();
-				Debug.Log("MoveRight");
-	
+				gameOver(true);	
 			}
-		}
-		*/
+		
+		
 		
 		// The mouse control is for testing only
 		if (Input.GetMouseButtonDown(0) && !usedMouse) {
@@ -135,8 +104,10 @@ public class Spinning : MonoBehaviour {
 				SpeedCalc();
 			}
 			usedMouse = false;
+				
 		}
 	}
+}
 	
 	
 	
@@ -273,8 +244,11 @@ public class Spinning : MonoBehaviour {
 		int track = Random.Range(1,5);
 		GameObject obj = (GameObject)Instantiate(ThornPrefab,getRandomThornPosition(track),Quaternion.identity);
 		obj.transform.parent = MerryGoRound.transform;
-		Transform poof = obj.transform.Find("ParticleVinePoof");
-		poof.gameObject.active = true;
+		
+		
+		
+		
+		
 
 		
 		Invoke("ThornSpawn",Random.Range(thornMinSeconds,thornMaxSeconds));
