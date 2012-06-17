@@ -43,7 +43,7 @@ public class Spinning : MonoBehaviour {
 		Invoke("startVineCrawl",vineCrawlDelay);
 		
 		
-		iPhoneUtils.PlayMovie("intro", Color.black, iPhoneMovieControlMode.CancelOnTouch);
+		
 		//Invoke ("gameOver",2.0f);
 	}
 	

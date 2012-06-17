@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour {
 			if(guiTexture.HitTest(Input.GetTouch(0).position))
 			{
 				Debug.Log("PlayButton touched");
+				iPhoneUtils.PlayMovie("intro.mov", Color.black, iPhoneMovieControlMode.CancelOnTouch);
 				Application.LoadLevel("Main");
 			}
 		}
