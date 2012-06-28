@@ -1,18 +1,19 @@
 #Unity Version 3.5.x Ignores
 
-# ignore everything
-/*
+# ignore everything in library and temp folders
+/PhillipsHeadiPadBuild/Library
+/PhillipsHeadPortBuild/Library
+/PhillipsHeadiPadBuild/Temp
+/PhillipsHeadPortBuild/Temp
 
 # don't ignore the ignore file
 !.gitignore
 
-# we only need two folders form unity Asssets and ProjectSettings
-!/Assets/
-!/ProjectSettings/
-
-# we do need the .asset and .prefs files in Library
-!/Library/*.asset
-!/Library/*.prefs
+# we do need the .asset and .prefs files in Library folders
+!/PhillipsHeadiPadBuild/Library/*.asset
+!/PhillipsHeadiPadBuild/Library/*.prefs
+!/PhillipsHeadiPadBuild/Library/*.asset
+!/PhillipsHeadiPadBuild/Library/*.prefs
 
 # apple stuff
 # .DS_Store.meta should not exist, but every now and then it happens
