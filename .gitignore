@@ -1,8 +1,8 @@
 #Unity Version 3.5.x Ignores
 
 # ignore everything in library and temp folders
-/PhillipsHeadiPadBuild/Library
-/PhillipsHeadPortBuild/Library
+/PhillipsHeadiPadBuild/Library/*
+/PhillipsHeadPortBuild/Library/*
 /PhillipsHeadiPadBuild/Temp
 /PhillipsHeadPortBuild/Temp
 
